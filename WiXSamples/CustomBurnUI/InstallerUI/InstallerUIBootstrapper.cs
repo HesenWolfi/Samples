@@ -24,10 +24,15 @@ namespace InstallerUI
 		{
 			this.Engine.Log(LogLevel.Verbose, "Running the custom WPF UI.");
 
-			// Uncomment the following line to debug bootstrapper
-			// Debugger.Launch();
-
-			using (var container = this.SetupCompositionContainer())
+            // Uncomment the following line to debug bootstrapper
+            // Debugger.Launch();
+#if DEBUG
+            while (!System.Diagnostics.Debugger.IsAttached)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+#endif
+            using (var container = this.SetupCompositionContainer())
 			{
 				// Get metadata from BootstrapperApplicationData.xml and add it to the log 
 				// for demonstration purposes
